@@ -1,43 +1,92 @@
 $(document).ready(function()
 {
-	var moviesList = [];
 	var texto = "";
+	var randomNum = 0;
+	var moviesList = [];
+	var moviesListNames = [];
+	var inverse = false;
 
 	$("#next").on("click", function()
 	{
-		$("#principal").html(texto);
+		generateRandomicNum();
+
+		printHtml();
+		
+		getPlanet();
+
+		setTimeout(() => {getMoviesList();} , 1000);
+
+		if(inverse)
+		{
+			$('.card').removeClass('flip');
+			$(".front").html(texto);
+		}
+		else
+		{
+
+			$('.card').addClass('flip');
+			$(".back").html(texto);
+		} 
+		texto = "";
+		moviesList = [];
+		moviesListNames = [];
+		inverse = !inverse;
 	});
 
-	function getRequest1()
+	// gera numero randomico
+	function generateRandomicNum()
 	{
-		$.getJSON("https://swapi.co/api/people/1/", function(dados)
+		randomNum = Math.floor((Math.random() * 61) + 0)
+		setTimeout(() => {
+			console.log(randomNum)
+		}, 1000);
+	}
+	
+	// requisicao de planetas
+	function getPlanet()
+	{
+		$.getJSON("https://swapi.co/api/planets/"+randomNum, (planet)=>
 		{
-			$.each(dados.films, function(i,film)
-			{
-				moviesList.push(film);
-			});
+			planeta = planet;
+			 $.each(planet.films, (i, film)=>
+			 {
+				 moviesList.push(film);
+			 })
 		});
 	}
 
-	function getRequest()
+	// requisicao de filmes do planeta
+	function getMoviesList()
 	{
-		moviesList.forEach((movie) => 
-		{
-			// debugger
-			$.getJSON(movie, function(dados)
+			moviesList.forEach((movie) => 
 			{
-				texto += "<div class='star'>";
-				texto += "<p>" + dados.title + "<p/>";
-				texto += "<div/>";
-			});
-		});
+				$.getJSON(movie, function(data)
+				{
+					moviesListNames.push(data.title);
+				});
+			});							
 	}
 
-	getRequest1();
-	setTimeout(() => 
+	// Imprime o HTML
+	function printHtml()
 	{
-		getRequest();
-	}, 300); 
+		if(moviesList.length == 0)
+		{
+			moviesListNames.push("None");
+		}
+		texto += "<div class='planet'>";
+		texto += 	"<h1>" + planeta.name + "</h1>";
+		texto += 	"<p>Population: <span>" + planeta.population + "<span></p>";
+		texto += 	"<p>Climate: <span>" + planeta.climate + "</span></p>";
+		texto += 	"<p>Terrain: <span>" + planeta.terrain + "</span></p>";
+		texto += 	"<p>Films: <span>" + moviesListNames.join([separador = ', ']) + "<span></p>";			
+		texto += "</div>";
+	}
+
+	// as funcoes abaixo sao chamadas ao iniciar o browser
+	generateRandomicNum();
+	getPlanet();
+	setTimeout(() => {getMoviesList();}, 1000);
 });
 
 
