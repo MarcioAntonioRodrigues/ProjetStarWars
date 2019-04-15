@@ -8,10 +8,10 @@ $(document).ready(function()
 
 	$("#next").on("click", function()
 	{
-		setTimeout(() => {$('#principal').css('display','block'); $('#next').html('NEXT');}, 4000);
+		setTimeout(() => {$('#next').html('NEXT');}, 4000);
 		$('#star-wars').addClass('animate');
 		$('#star-wars').css({'top':'20px','left':'20px'});
-		$("#principal").fadeIn(5000);
+		$("#principal").fadeIn(10000);
 		
 		generateRandomicNum();
 
