@@ -4,7 +4,7 @@ h1
     font-size: 50px;
     font-weight: 700;
     text-align: center;
-    border-bottom: 2px solid black;
+    border-bottom: 9px solid #fff;
     font-family: 'Kalam', cursive;
 }
 
@@ -13,37 +13,52 @@ button
     width: 90px;
     border: none;
     height: 25px;
-    color: white;
+    color: #fff;
+    transition: .5s;
     cursor: pointer;
+    font-weight: 700;
     border-radius: 15px;
-    background: royalblue;
+    background: black;
+    border: 2px solid #fff;
+}
+
+button:hover
+{
+    color: black;
+    background: #fff;
+    transform: scale(1.2);
+    border: 2px solid #fff;
 }
 
 img
 {
-    top: 30px;
     width: 300px;
     position: absolute;
+    z-index: 99999999999;
+    top: calc(50% - 75px);
     left: calc(50% - 150px);
 }
 
 .btn
 {
-    top: 25%;
+    top: calc(50% + 220px);
     width: 100%;
-    max-width: 600px;
+    max-width: 300px;
     margin: 20px auto;
     text-align: center;
-    position: relative;
+    position: absolute;
+    left: calc(50% - 150px);
 }
 
 #principal
 {
     width: 300px;
+    display: none;
     height: 420px;
     margin: 0 auto;
-    position: relative;
+    position: absolute;
     top: calc(50% - 210px);
+    left: calc(50% - 150px);
 }
 
 .card
@@ -54,7 +69,6 @@ img
     border-radius: 20px;
     transition: all 1s ease;
     transform-style: preserve-3d;
-    box-shadow: 0 0 5px 0px rgba(0,0,0,.3);
 }
 
 .card.flip
@@ -69,9 +83,9 @@ img
     color: #333;
     position: absolute;
     border-radius: 20px;
-    background: #ffc728;
-    border: 2px solid black;
+    background-image: url(../img/background01.jpg);
     backface-visibility: hidden;
+    box-shadow: 0px 0px 1px 10px #fff;
 }
 
 .back
@@ -81,10 +95,10 @@ img
     color: #333;
     position: absolute;
     border-radius: 20px;
-    background: #fafafa;
-    border: 2px solid black;
+    background-image: url(../img/background02.jpg);
     transform: rotatey(180deg);
     backface-visibility: hidden;
+    box-shadow: 0px 0px 1px 10px #fff;
 }
 
 p
@@ -105,7 +119,10 @@ span
 @import "susy";
 @import "compass/reset";
 
-.stars, .twinkling, .clouds {
+.stars, 
+.twinkling, 
+.clouds 
+{
 	position:absolute;
 	display:block;
 	top:0; bottom:0;
@@ -113,29 +130,92 @@ span
 	width:100%; height:100%;
 }
 
-.stars {
+.stars 
+{
 	z-index: 0;
 	background: #000 url('https://image.ibb.co/mjnygo/stars.png') repeat top center;
 }
 
-.twinkling{
+.twinkling
+{
 	z-index: 1;
 	background:transparent url('https://image.ibb.co/ir1DE8/twinkling.png') repeat top center;
 	animation: move-twink-back 200s linear infinite;
 }
 
-.clouds{
+.clouds
+{
 	z-index: 2;
     background:transparent url('https://image.ibb.co/bT4N7T/clouds.png') repeat top center;
 	animation: move-clouds-back 200s linear infinite;
 }
 
-@keyframes move-twink-back {
+@keyframes move-twink-back 
+{
 	from {background-position:0 0;}
 	to {background-position:-10000px 5000px;}
 }
 
-@keyframes move-clouds-back {
+@keyframes move-clouds-back 
+{
 	from {background-position:0 0;}
 	to {background-position:10000px 0;}
+}
+
+@keyframes anima1
+{
+    from{left:calc(50% - 150px); top: calc(50% - 75px);}
+    to{left:20px; top: 20px;}
+}
+
+@keyframes anima2{
+from{transform:rotateX(0deg)}
+to{transform:rotateX(360deg)}
+}
+
+.animate{
+position: relative;
+animation-name:anima1,anima2;
+animation-duration:4s;
+animation-delay:0s,0.5s;
+transition: 1s;
+}
+
+/* responsive area */
+@media screen and (max-width: 800px) 
+{
+    img
+    {
+        width: 200px;
+        left: calc(50% - 100px);
+    }
+
+    @keyframes anima1
+    {
+        from{left:calc(50% - 100px); top: calc(50% - 75px);}
+        to{left:20px; top: 20px;}
+    }
+}
+
+@media screen and (max-width: 400px)
+{
+    img
+    {
+        width: 150px;
+        left: calc(50% - 75px);
+    }
+
+    #principal 
+    {
+        width: 250px;
+        height: 380px;
+        top: calc(50% - 165px);
+        left: calc(50% - 125px);
+    }
+
+    @keyframes anima1
+    {
+        from{left:calc(50% - 75px); top: calc(50% - 75px);}
+        to{left:20px; top: 20px;}
+    }
 }

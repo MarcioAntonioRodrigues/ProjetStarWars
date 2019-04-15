@@ -8,6 +8,10 @@ $(document).ready(function()
 
 	$("#next").on("click", function()
 	{
+		setTimeout(() => {$('#principal').css('display','block'); $('#next').html('NEXT');}, 4000);
+		$('#star-wars').addClass('animate');
+		$('#star-wars').css({'top':'20px','left':'20px'});
+		
 		generateRandomicNum();
 
 		printHtml();
@@ -37,9 +41,6 @@ $(document).ready(function()
 	function generateRandomicNum()
 	{
 		randomNum = Math.floor((Math.random() * 61) + 0)
-		setTimeout(() => {
-			console.log(randomNum)
-		}, 1000);
 	}
 	
 	// requisicao de planetas
